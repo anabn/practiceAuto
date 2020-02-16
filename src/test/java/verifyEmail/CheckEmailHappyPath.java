@@ -1,7 +1,12 @@
 package verifyEmail;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.Random;
+import java.util.regex.Pattern;
 
 import static autoPractice.Email.isEmailCorrect;
 
@@ -16,18 +21,34 @@ import static autoPractice.Email.isEmailCorrect;
  * 4. email with spec Symbols (size from 3 to 20)
  *
  */
-public class CheckEmailHappyPath extends AbstractClass{
+public class CheckEmailHappyPath{
 
-//    @Test
-//    public void result() {
-//        Assert.assertTrue(isEmailCorrect(example));
-//    }
+    final static int MAX_SIZE_EMAIL = 20;
+    final static int MIN_SIZE_EMAIL = 3;
 
-    @Test(dataProvider = "RightEmail")
-    public void result(Object ... email){
+    final static int MAX_SIZE_PROVIDER = 5;
+    final static int MIN_SIZE_PROVIDER = 3;
+
+
+    @BeforeMethod
+    @DataProvider(name = "CorrectEmail")
+    private final static Object[][] credentials() {
+        return new Object[][] {
+                {"9999999@hh.aa"},
+                {"99999999@hh.aa"},
+                {"testuser2@gmail.com"},
+                {"zxcvb@ukr.net"},
+                {"guestuser3@aa.ddd"},
+                {"!!!!!!!@66.ff"}
+        };
+    }
+
+    @Test(dataProvider = "CorrectEmail")
+    public void verifyEmailWithIncorrectData(Object ... email){
         for (Object elem : email){
             Assert.assertTrue(isEmailCorrect(elem.toString()));
         }
     }
+
 
 }
