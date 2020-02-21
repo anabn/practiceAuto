@@ -13,31 +13,122 @@ import static autoPractice.Email.isEmailCorrect;
  */
 public class CheckEmailUnhappyPath{
 
-    final static int MAX_SIZE_EMAIL = 20;
-    final static int MIN_SIZE_EMAIL = 3;
+    private final static int MAX_SIZE_EMAIL = 20;
+    private final static int INVALID_MAX_SIZE_EMAIL = MAX_SIZE_EMAIL + 1;
 
-    final static int MAX_SIZE_PROVIDER = 5;
-    final static int MIN_SIZE_PROVIDER = 3;
+    private final static int MIN_SIZE_EMAIL = 3;
+    private final static int INVALID_MIN_SIZE_EMAIL = MIN_SIZE_EMAIL - 1;
 
+    private final static int MAX_SIZE_PROVIDER = 5;
+    private final static int INVALID_MAX_SIZE_PROVIDER = MAX_SIZE_PROVIDER + 1;
+    private final static int MIN_SIZE_PROVIDER = 2;
+    private final static int INVALID_MIN_SIZE_PROVIDER = MIN_SIZE_PROVIDER - 1;
+
+    private final static String ONLY_CHAR_IN_STRING = "qazxswedcvfrtgbnhyujmkiolp1234567890";
+    private final static String ONLY_NUMBERS_IN_STRING= "123456789023456789456789456789";
+    private final static String ONLY_SPEC_SYMBOLS_IN_STRING = "123456789023456789456789456789";
 
     @BeforeMethod
     @DataProvider(name = "IncorrectEmail")
-    private final static Object[][] incorrectArguments() {
+    private final static Object[][] incorrectValuesInEmail() {
         return new Object[][] {
-                {"asedf@a.22"},
-                {"aaaa..@11"},
-                {"      @11.aa"},
-                {"a.@1.1"},
-                {"ioi"},
-                {"tt.gmail.com"}
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER + 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL - 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER - 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, INVALID_MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, INVALID_MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0, INVALID_MAX_SIZE_PROVIDER)}
         };
     }
 
     @Test(dataProvider = "IncorrectEmail")
-    public void result(Object ... arg){
+    public void usingIncorrectValuesToValidateTheEmail(Object ... arg){
         for (Object elem : arg){
-            Assert.assertFalse(isEmailCorrect(elem.toString()));
+            Assert.assertFalse(isEmailCorrect(elem.toString()), "using more [ " + MAX_SIZE_EMAIL
+                    + " ] or less [ " + MIN_SIZE_EMAIL + "]  for email name and for provider's name - more [ " +
+            + MAX_SIZE_PROVIDER +" ] or less [ " + MIN_SIZE_EMAIL + " ]");
         }
     }
-
 }

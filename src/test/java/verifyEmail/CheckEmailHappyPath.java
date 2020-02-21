@@ -23,28 +23,121 @@ import static autoPractice.Email.isEmailCorrect;
  */
 public class CheckEmailHappyPath{
 
-    final static int MAX_SIZE_EMAIL = 20;
-    final static int MIN_SIZE_EMAIL = 3;
+    private final static int MAX_SIZE_EMAIL = 20;
+    private final static int MIN_SIZE_EMAIL = 3;
 
-    final static int MAX_SIZE_PROVIDER = 5;
-    final static int MIN_SIZE_PROVIDER = 3;
+    private final static int MAX_SIZE_PROVIDER = 5;
+    private final static int MIN_SIZE_PROVIDER = 2;
 
+    private final static String ONLY_CHAR_IN_STRING = "qazxswedcvfrtgbnhyujmkiolp1234567890";
+    private final static String ONLY_NUMBERS_IN_STRING= "123456789023456789456789456789";
+    private final static String ONLY_SPEC_SYMBOLS_IN_STRING = "__!!!_____!!!!____!__!!!!!!!!____!";
 
     @BeforeMethod
     @DataProvider(name = "CorrectEmail")
-    private final static Object[][] credentials() {
+    private final static Object[][] properValuesInEmail() {
         return new Object[][] {
-                {"9999999@hh.aa"},
-                {"99999999@hh.aa"},
-                {"testuser2@gmail.com"},
-                {"zxcvb@ukr.net"},
-                {"guestuser3@aa.ddd"},
-                {"!!!!!!!@66.ff"}
+
+                {ONLY_CHAR_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MAX_SIZE_EMAIL - 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MAX_SIZE_EMAIL - 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_CHAR_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MAX_SIZE_EMAIL - 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MAX_SIZE_EMAIL - 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER - 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_NUMBERS_IN_STRING.substring(MIN_SIZE_EMAIL, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(MIN_SIZE_PROVIDER, MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(MIN_SIZE_PROVIDER, MAX_SIZE_PROVIDER)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, MIN_SIZE_EMAIL + 1)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, MIN_SIZE_EMAIL)+
+                        "@"+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MIN_SIZE_PROVIDER + 1)},
+
+                {ONLY_SPEC_SYMBOLS_IN_STRING.substring(0, MAX_SIZE_EMAIL)+
+                        "@"+ ONLY_NUMBERS_IN_STRING.substring(0,MAX_SIZE_PROVIDER)+
+                        "."+ ONLY_CHAR_IN_STRING.substring(0,MAX_SIZE_PROVIDER)}
         };
     }
 
     @Test(dataProvider = "CorrectEmail")
-    public void verifyEmailWithIncorrectData(Object ... email){
+    public void verifyEmailWithCorrectData(Object ... email){
         for (Object elem : email){
             Assert.assertTrue(isEmailCorrect(elem.toString()));
         }
