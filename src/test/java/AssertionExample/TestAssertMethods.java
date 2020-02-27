@@ -12,10 +12,10 @@ public class TestAssertMethods {
     private final static String YOUTUBE_CAMEL_CASE = "YouTube";
     private final static String YOUTUBE_LOWER_CASE = "youtube";
 
-    protected WebDriver chromeDriver;
+    private WebDriver chromeDriver;
     @BeforeSuite
     public void setUpChromeDriver() throws Exception{
-        System.setProperty("webdriver.chrome.driver", "/Users/popcorn/Drivers/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/Users/popcorn/Drivers/chromedriver");
         chromeDriver = new ChromeDriver();
         String url = "https://www.youtube.com/";
         chromeDriver.navigate().to(url);
@@ -31,7 +31,7 @@ public class TestAssertMethods {
 
     @Test
     public void testCaseVerifyHomePageWithErrorMessageInAssertion() {
-        Assert.assertEquals(YOUTUBE_LOWER_CASE, chromeDriver.getTitle(), "is not equal");
+        Assert.assertEquals(YOUTUBE_CAMEL_CASE, chromeDriver.getTitle(), "is not equal");
     }
 
     @Test
